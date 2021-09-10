@@ -5,6 +5,11 @@
   margin: 10px;
  
 }
+.level__radio {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
 .btn__start {
   border-radius: 10px;
   width: 100px;
@@ -12,7 +17,11 @@
   background-color: #66ccff;
   border: none;
   color: white;
+  
+  display: block;
+  margin: auto;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .btn__start:hover {
   color: black;
