@@ -1,0 +1,69 @@
+.card {
+  position: relative;
+  width: 9rem; height: 12rem;
+  perspective: 30rem;
+  margin: 10px;
+ 
+}
+.btn__start {
+  border-radius: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: #66ccff;
+  border: none;
+  color: white;
+  margin-bottom: 20px;
+}
+.btn__start:hover {
+  color: black;
+  background-color: #9d80ef;
+}
+.front, .back {
+  position: absolute;
+  width: 100%; height: 100%;
+  transition: transform 0.7s;
+  backface-visibility:hidden;
+  border-radius: 5px;
+}
+.front { 
+  background-color: #66ccff; 
+}
+.back { 
+  background-color: #36e3e9; 
+  transform: rotateY(180deg); 
+  display: flex;
+  align-items: center;
+}
+
+.rotate__front {
+	transform: rotateY(180deg); 
+}
+.rotate__back {
+	transform: rotateY(360deg); 
+}
+.cards {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 760px;
+  justify-content: center;
+  height: 100%;
+  width: auto;
+}
+
+.card__opacity {
+  opacity: 0;
+}
+.stop_click {
+  pointer-events: none;
+}
+.back img{
+	height: 90%;
+	width: 90%;
+}
+.text__score {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

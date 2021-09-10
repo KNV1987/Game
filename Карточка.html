@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Моя первая страница</title>
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <button class="btn__start" onClick=start()>Start</button>
+	<div class="level__radio">
+		<input class="radio__btn" type="radio" value="1200" name="level">Easy</input>
+		<input class="radio__btn" type="radio" value="900" name="level">Normal</input>
+		<input class="radio__btn" type="radio" value="700" name="level">Hard</input>
+	</div>
+    <div class="text__score">Cards collected<span class="score">: 0</span></div>
+	<div class="cards">
+		
+	</div>
+	
+	<script>
+	
+	
+	function start(){
+	 let start_btn = document.querySelector(".btn__start");
+	 start_btn.classList.add("stop_click");
+	 let speed = document.querySelector('input[name="level"]:checked').value;
+	 const arrLigth = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+	 let arr1 = arrLigth;
+	 let arrConc = arr1.concat(arr1);
+	 
+	 function randArr(arr) {
+		for (let i = arr.length - 1; i >= 0; i--) {
+		  let j = Math.floor(Math.random() * i);
+	      [arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+		return arr;
+	 }
+	 
+	 const newArr = randArr(arrConc);
+	 
+	  let cards = document.querySelector(".cards");
+	  newArr.forEach(el => {
+	    cards.insertAdjacentHTML("beforeend", 
+	     `<div class="card">
+		  <div class="front"></div>
+		  <div class="back" data-value=${el}><img src="./img/${el}"></div>
+		</div>`)
+	  });
+	
+	  
+	  let score = document.querySelector(".score");
+	  let card = document.querySelectorAll(".card");
+	  let text = document.querySelector(".text");
+	  let fronts = document.querySelectorAll(".front");
+	  let backs = document.querySelectorAll(".back");
+	  let total = 0;
+	  let count = 0;
+	  let scoreFinish = 0;
+	  let resArr = [];
+	  fronts.forEach((el) =>  {
+	    el.addEventListener("click", () => {
+			el.classList.add("rotate__front");
+			el.nextElementSibling.classList.add("rotate__back");
+			let res = el.nextElementSibling.getAttribute("data-value");
+			addRes(resArr, res);
+		 })
+	  })
+	  
+	  card.forEach((el) => {
+	    el.addEventListener("click", () => {
+		  count++;
+		  scoreFinish++;
+		  el.classList.add("activ");
+		  if (count === 2) {
+			  if(resArr.length < 2) {
+			    setTimeout(cardOpacity, speed, "activ");
+				total++;
+				score.innerHTML = `: ${total}`;
+			  } 
+			  stopClick(true);
+			  setTimeout(coup, speed);
+			  
+			}
+			if(total === arr1.length) {
+				alert(`Game finished. You score: ${scoreFinish / 2}`);
+				start_btn.classList.remove("stop_click");
+			}
+		})
+	  })
+	  
+	  
+	  function addRes(arr, res) {
+	    if (!arr.includes(res)){
+	      arr.push(res);
+		}
+	  }
+	  
+	  function coup() {
+	      count = 0;
+		  resArr = [];
+		  backs.forEach((el) => {
+			el.classList.remove("rotate__back");
+			el.previousElementSibling.classList.remove("rotate__front");
+		})
+		card.forEach((item) => item.classList.remove("activ"));
+		stopClick(false);
+	  }
+	  
+	  function stopClick(flag) {
+	    if(flag) cards.classList.add("stop_click");
+		else cards.classList.remove("stop_click");
+	  }
+	  
+	  function cardOpacity(nameCard) {
+		  let cardActiv = document.querySelectorAll(`.${nameCard}`);
+		  cardActiv.forEach((item) => {
+		    item.classList.add("card__opacity");
+			item.classList.add("stop_click");
+			});
+	  }
+	  }
+	  
+	  
+	</script>
+</body>
+</html>
